@@ -2,11 +2,12 @@ import cv2
 import os
 
 def images_to_video(image_folder, output_path, fps):
-    image_files = [f for f in os.listdir(image_folder) if f.endswith('.jpg')]
+    image_files = [f for f in os.listdir(image_folder) if f.endswith('.png')]
     
 
     # Sort the image files numerically
-    image_files.sort(key=lambda x: int(x.split('.')[0]))
+    image_files.sort(key=lambda x: int(x.split('.')[0][1:]))
+    print(image_files)
 
     # Determine the width and height of the images
     sample_image = cv2.imread(os.path.join(image_folder, image_files[0]))
@@ -29,10 +30,9 @@ def images_to_video(image_folder, output_path, fps):
     cv2.destroyAllWindows()
 
 # Example usage
-image_folder = '.'
-output_path = './output.mp4'
+image_folder = './cover'
+output_path = './beautifultraj.mp4'
+images_to_video(image_folder, output_path, fps=24)
 fps = 24  # Frames per second
-
-images_to_video(image_folder, output_path, fps)
 
 

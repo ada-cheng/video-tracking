@@ -55,3 +55,6 @@ if __name__ == "__main__":
     swan_next_head_pca = swan_next_head_pca.reshape(16, 16, 3).astype(np.uint8)
     plt.imshow(swan_next_head_pca)
     plt.savefig("swan_next_head.png")
+    
+    
+    

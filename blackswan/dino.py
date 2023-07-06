@@ -1,6 +1,7 @@
 import torch
 from torchvision.transforms import functional as F
 from PIL import Image
+import os
 
 # 加载预训练模型
 model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
@@ -15,10 +16,13 @@ def get_feature(image_path,output):
     
     with torch.no_grad():
         features = model.get_intermediate_layers(image.unsqueeze(0), 1, return_class_token=True)[0] 
-    print(features[0].shape)
-    torch.save(features[0], output)
-for i in range(10):
-    get_feature(f"./0000{i}.jpg",f"./{i}.pt")
+    
+    # save to the dinofeat folder
+    torch.save(features[0],os.path.join("./dinofeat",output))
+for i in range(50):
+    # the name is zero filled to 5 digits
+    i = str(i).zfill(5)
+    get_feature("./"+str(i)+".jpg",str(i)+".pt")
 
 
 
